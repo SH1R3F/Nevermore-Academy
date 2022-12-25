@@ -35,11 +35,13 @@ class RolePermissionSeeder extends Seeder
         ]);
 
         // Basic permissions we need. We gonna keep adding permissions here as we go.
+        $list_role = Permission::create(['name' => 'List roles', 'slug' => 'list-role']);
         $create_role = Permission::create(['name' => 'Create role', 'slug' => 'create-role']);
         $read_role   = Permission::create(['name' => 'Read role', 'slug' => 'read-role']);
         $update_role = Permission::create(['name' => 'Update role', 'slug' => 'update-role']);
         $delete_role = Permission::create(['name' => 'Delete role', 'slug' => 'delete-role']);
 
+        $list_user = Permission::create(['name' => 'List users', 'slug' => 'list-user']);
         $create_user = Permission::create(['name' => 'Create user', 'slug' => 'create-user']);
         $read_user   = Permission::create(['name' => 'Read user', 'slug' => 'read-user']);
         $update_user = Permission::create(['name' => 'Update user', 'slug' => 'update-user']);
@@ -47,7 +49,7 @@ class RolePermissionSeeder extends Seeder
 
         // Assign roles and permissions
         $superadmin->permissions()->sync(Permission::pluck('id'));
-        $admin->permissions()->sync([$create_user->id, $read_user->id, $update_user->id, $delete_user->id]);
+        $admin->permissions()->sync([$list_user->id, $create_user->id, $read_user->id, $update_user->id, $delete_user->id]);
         $teacher->permissions()->sync([]);
         $student->permissions()->sync([]);
     }
