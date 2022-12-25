@@ -2,14 +2,6 @@
         <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur"
             data-scroll="false">
             <div class="container-fluid py-1 px-3">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Pages</a>
-                        </li>
-                        <li class="breadcrumb-item text-sm text-white active" aria-current="page">Dashboard</li>
-                    </ol>
-                    <h6 class="font-weight-bolder text-white mb-0">Dashboard</h6>
-                </nav>
                 <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
                     <ul class="ms-md-auto navbar-nav  justify-content-end">
                         <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
@@ -30,19 +22,22 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end px-2 py-3 me-sm-n4"
                                 style="top: .5rem !important;" aria-labelledby="userMenuBar">
-                                @can('create-role')
-                                    <li>
-                                        <span class="text-sm font-weight-normal mb-1 d-block text-center text-muted">
-                                            Role: {{ auth()->user()->role->name }}
-                                        </span>
-                                    </li>
-                                @endcan
-                                <hr />
+                                <li>
+                                    <span class="text-sm font-weight-normal mb-1 d-block text-center text-muted">
+                                        Role: {{ auth()->user()->role->name }}
+                                    </span>
+                                </li>
+                                <li>
+                                    <a class="text-sm font-weight-normal mb-1 bg-transparent w-100 text-center py-1 d-block"
+                                        href="{{ route('profile.edit') }}">
+                                        Profile
+                                    </a>
+                                </li>
                                 <li>
                                     <form method="POST" action="{{ route('logout') }}" id="logoutForm">
                                         @csrf
                                         <button
-                                            class="text-sm font-weight-normal mb-1 bg-transparent w-100 text-center border-0"
+                                            class="text-sm font-weight-normal mb-1 bg-transparent w-100 text-center py-1 border-0"
                                             type="submit">
                                             Logout
                                         </button>
