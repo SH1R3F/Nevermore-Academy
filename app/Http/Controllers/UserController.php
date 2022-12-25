@@ -31,18 +31,20 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $roles = Role::all(['id', 'name']);
+        return view('users.create', compact('roles'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  UserRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        //
+        User::create($request->validated());
+        return redirect()->route('users.index')->with('status', 'User created successfully');
     }
 
     /**

@@ -7,8 +7,13 @@
         <div class="row">
             <div class="col-12">
                 <div class="card mb-4">
-                    <div class="card-header pb-0">
-                        <h6>Users table</h6>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="card-header pb-0">
+                            <h6>Users table</h6>
+                        </div>
+                        <div class="px-4 pt-3">
+                            <a href="{{ route('users.create') }}" class="btn btn-primary">Add</a>
+                        </div>
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="table-responsive p-0">

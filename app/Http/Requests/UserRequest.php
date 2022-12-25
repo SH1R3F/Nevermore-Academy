@@ -26,9 +26,20 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['string', 'max:255'],
-            'email' => ['email', 'max:255', Rule::unique(User::class)->ignore($this->user->id)],
-            'role_id' => ['numeric', 'exists:roles,id']
+            'name' => ['required', 'string', 'max:255'],
+            'email' => [
+                'required',
+                'email',
+                'max:255',
+                Rule::when(request()->isMethod('POST'), Rule::unique(User::class)),
+                Rule::when(request()->isMethod('PATCH'), Rule::unique(User::class)->ignore($this->user)),
+            ],
+            'role_id' => ['required', 'numeric', 'exists:roles,id'],
+            'password' => [
+                Rule::when(request()->isMethod('POST'), 'required'),
+                'min:8',
+                'confirmed'
+            ]
         ];
     }
 }
