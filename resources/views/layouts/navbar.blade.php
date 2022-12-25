@@ -18,13 +18,13 @@
                             <a href="javascript:;" class="nav-link text-white p-0" id="userMenuBar"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fa fa-user me-sm-1"></i>
-                                <span class="d-sm-inline d-none">{{ auth()->user()->name }}</span>
+                                <span class="d-sm-inline d-none">{{ $authUser->name }}</span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end px-2 py-3 me-sm-n4"
                                 style="top: .5rem !important;" aria-labelledby="userMenuBar">
                                 <li>
                                     <span class="text-sm font-weight-normal mb-1 d-block text-center text-muted">
-                                        Role: {{ auth()->user()->role->name }}
+                                        Role: {{ $authUser->role->name }}
                                     </span>
                                 </li>
                                 <li>

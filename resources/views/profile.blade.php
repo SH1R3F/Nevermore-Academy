@@ -15,10 +15,10 @@
                 <div class="col-auto my-auto">
                     <div class="h-100">
                         <h5 class="mb-1">
-                            {{ $user->name }}
+                            {{ $authUser->name }}
                         </h5>
                         <p class="mb-0 font-weight-bold text-sm">
-                            {{ $user->role?->name }}
+                            {{ $authUser->role?->name }}
                         </p>
                     </div>
                 </div>
@@ -50,7 +50,7 @@
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Name</label>
                                         <input class="form-control" type="text" name="name"
-                                            value="{{ old('name', $user->name) }}">
+                                            value="{{ old('name', $authUser->name) }}">
                                         @error('name')
                                             <span class="text-danger text-sm">{{ $message }}</span>
                                         @enderror
@@ -60,7 +60,7 @@
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Email address</label>
                                         <input class="form-control" type="email" name="email"
-                                            value="{{ old('email', $user->email) }}">
+                                            value="{{ old('email', $authUser->email) }}">
                                         @error('email')
                                             <span class="text-danger text-sm">{{ $message }}</span>
                                         @enderror
@@ -87,10 +87,10 @@
                     <div class="card-body pt-0">
                         <div class="text-center mt-4">
                             <h5>
-                                {{ $user->name }}
+                                {{ $authUser->name }}
                             </h5>
                             <div class="h6 mt-4">
-                                <i class="ni business_briefcase-24 mr-2"></i>{{ $user->role?->name }}
+                                <i class="ni business_briefcase-24 mr-2"></i>{{ $authUser->role?->name }}
                             </div>
                             <div>
                                 <i class="ni education_hat mr-2"></i>Nevermore is happy having you with us.

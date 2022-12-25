@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
@@ -22,8 +24,13 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(Guard $auth)
     {
         Schema::defaultStringLength(191);
+
+        // Share logged in user through all views
+        View::composer('*', function ($view) use ($auth) {
+            $view->with('authUser', $auth->user()->load('role'));
+        });
     }
 }
