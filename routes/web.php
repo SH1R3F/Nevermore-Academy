@@ -25,6 +25,9 @@ Route::middleware('auth')->group(function () {
 
     /* Manage users */
     Route::get('users', [UserController::class, 'index'])->can('list-user')->name('users.index');
+    Route::get('users/{user}', [UserController::class, 'edit'])->can('update-user')->name('users.edit');
+    Route::patch('users/{user}', [UserController::class, 'update'])->can('update-user')->name('users.update');
+    Route::delete('users/{user}', [UserController::class, 'destroy'])->can('delete-user')->name('users.destroy');
 
 
     //

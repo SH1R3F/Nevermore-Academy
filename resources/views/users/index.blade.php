@@ -12,6 +12,11 @@
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="table-responsive p-0">
+                            @if (Session::has('status'))
+                                <div class="alert alert-success" role="alert">
+                                    <strong>Success!</strong> {{ session('status') }}
+                                </div>
+                            @endif
                             <table class="table align-items-center mb-0">
                                 <thead>
                                     <tr>
@@ -55,10 +60,25 @@
                                                     {{ $user->role?->name }}</p>
                                             </td>
                                             <td class="align-middle">
-                                                <a href="javascript:;" class="text-secondary font-weight-bold text-xs"
-                                                    data-toggle="tooltip" data-original-title="Edit user">
-                                                    Edit
-                                                </a>
+                                                @if ($authUser->can('update-user') && !$user->hasRole('superadmin'))
+                                                    <a href="{{ route('users.edit', $user->id) }}"
+                                                        class="text-secondary font-weight-bold text-xs"
+                                                        data-toggle="tooltip" data-original-title="Edit user">
+                                                        Edit
+                                                    </a>
+                                                @endif
+                                                @if ($authUser->can('delete-user') && !$user->hasRole('superadmin'))
+                                                    <form action="{{ route('users.destroy', $user->id) }}" method="POST"
+                                                        class="d-inline">
+                                                        @method('DELETE')
+                                                        @csrf
+                                                        <button type="submit"
+                                                            class="text-danger font-weight-bold text-xs bg-transparent border-0"
+                                                            data-toggle="tooltip" data-original-title="Delete user">
+                                                            Delete
+                                                        </button>
+                                                    </form>
+                                                @endif
                                             </td>
                                         </tr>
                                     @empty

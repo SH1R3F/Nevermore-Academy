@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use App\Http\Requests\UserRequest;
 
 class UserController extends Controller
 {
@@ -43,47 +46,50 @@ class UserController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        // Superadmins cannot be edited;
+        abort_if($user->hasRole('superadmin'), Response::HTTP_NOT_FOUND);
+
+        return view('users.edit', [
+            'user' => $user->load('role'),
+            'roles' => Role::all(['id', 'name'])
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  UserRequest  $request
+     * @param  User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserRequest $request, User $user)
     {
-        //
+        // Superadmins cannot be updated;
+        abort_if($user->hasRole('superadmin'), Response::HTTP_UNPROCESSABLE_ENTITY);
+
+        $user->update($request->validated());
+        return redirect()->route('users.edit', $user->id)->with('status', 'User updated successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        // Superadmins cannot be deleted;
+        abort_if($user->hasRole('superadmin'), Response::HTTP_UNPROCESSABLE_ENTITY);
+
+        $user->delete();
+        return redirect()->route('users.index')->with('status', 'User has been deleted successfully');
     }
 }
