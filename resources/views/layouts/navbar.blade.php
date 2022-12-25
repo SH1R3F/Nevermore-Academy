@@ -11,20 +11,7 @@
                     <h6 class="font-weight-bolder text-white mb-0">Dashboard</h6>
                 </nav>
                 <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
-                    <div class="ms-md-auto pe-md-3 d-flex align-items-center">
-                        <div class="input-group">
-                            <span class="input-group-text text-body"><i class="fas fa-search"
-                                    aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" placeholder="Type here...">
-                        </div>
-                    </div>
-                    <ul class="navbar-nav  justify-content-end">
-                        <li class="nav-item d-flex align-items-center">
-                            <a href="javascript:;" class="nav-link text-white font-weight-bold px-0">
-                                <i class="fa fa-user me-sm-1"></i>
-                                <span class="d-sm-inline d-none">Sign In</span>
-                            </a>
-                        </li>
+                    <ul class="ms-md-auto navbar-nav  justify-content-end">
                         <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
                             <a href="javascript:;" class="nav-link text-white p-0" id="iconNavbarSidenav">
                                 <div class="sidenav-toggler-inner">
@@ -34,10 +21,34 @@
                                 </div>
                             </a>
                         </li>
-                        <li class="nav-item px-3 d-flex align-items-center">
-                            <a href="javascript:;" class="nav-link text-white p-0">
-                                <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
+                        {{-- User information --}}
+                        <li class="nav-item dropdown pe-2 d-flex align-items-center mx-2">
+                            <a href="javascript:;" class="nav-link text-white p-0" id="userMenuBar"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa fa-user me-sm-1"></i>
+                                <span class="d-sm-inline d-none">{{ auth()->user()->name }}</span>
                             </a>
+                            <ul class="dropdown-menu dropdown-menu-end px-2 py-3 me-sm-n4"
+                                style="top: .5rem !important;" aria-labelledby="userMenuBar">
+                                @can('create-role')
+                                    <li>
+                                        <span class="text-sm font-weight-normal mb-1 d-block text-center text-muted">
+                                            Role: {{ auth()->user()->role->name }}
+                                        </span>
+                                    </li>
+                                @endcan
+                                <hr />
+                                <li>
+                                    <form method="POST" action="{{ route('logout') }}" id="logoutForm">
+                                        @csrf
+                                        <button
+                                            class="text-sm font-weight-normal mb-1 bg-transparent w-100 text-center border-0"
+                                            type="submit">
+                                            Logout
+                                        </button>
+                                    </form>
+                                </li>
+                            </ul>
                         </li>
                         <li class="nav-item dropdown pe-2 d-flex align-items-center">
                             <a href="javascript:;" class="nav-link text-white p-0" id="dropdownMenuButton"
@@ -128,4 +139,3 @@
                 </div>
             </div>
         </nav>
-        <!-- End Navbar -->

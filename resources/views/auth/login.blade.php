@@ -18,7 +18,7 @@
                                     @csrf
                                     <div class="mb-3">
                                         <input name="email" type="email" class="form-control form-control-lg"
-                                            placeholder="Email" aria-label="Email" value="email@mail.com">
+                                            placeholder="Email" aria-label="Email" value="superadmin@sh1r3f.com">
                                         @error('email')
                                             <span class="text-danger text-sm">{{ $message }}</span>
                                         @enderror
