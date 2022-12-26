@@ -16,7 +16,7 @@ Clone the repository
 
 Switch to the repo folder
 
-    cd laravel-realworld-example-app
+    cd nevermore-academy
 
 Install all the dependencies using composer
 
@@ -43,7 +43,7 @@ You can now access the server at http://localhost:8000
 **TL;DR command list**
 
     git clone https://github.com/SH1R3F/Nevermore-Academy.git
-    cd laravel-realworld-example-app
+    cd nevermore-academy
     composer install
     cp .env.example .env
     php artisan key:generate
